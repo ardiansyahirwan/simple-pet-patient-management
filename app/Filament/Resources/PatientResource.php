@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PatientResource\Pages;
 use App\Filament\Resources\PatientResource\Pages\CreatePatient;
 use App\Filament\Resources\PatientResource\RelationManagers;
+use App\Filament\Widgets\PatientTypeOverview;
 use App\Models\Patient;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
@@ -104,5 +105,12 @@ class PatientResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return __('Pet Patients');
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            PatientTypeOverview::class,
+        ];
     }
 }

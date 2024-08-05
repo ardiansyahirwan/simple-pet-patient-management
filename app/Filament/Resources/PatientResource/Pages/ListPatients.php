@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\PatientResource\Pages;
 
 use App\Filament\Resources\PatientResource;
+use App\Filament\Widgets\PatientTypeOverview;
 use App\Models\Patient;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
@@ -17,6 +18,13 @@ class ListPatients extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            PatientTypeOverview::class,
         ];
     }
 
