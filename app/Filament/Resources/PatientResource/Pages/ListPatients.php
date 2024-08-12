@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Builder;
 class ListPatients extends ListRecords
 {
     protected static string $resource = PatientResource::class;
+    protected ?string $heading = 'Pet Patients';
+    protected ?string $subheading = 'There are list of pet on table';
 
     protected function getHeaderActions(): array
     {

@@ -2,14 +2,18 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
         "filament/filament": "^3.2",
         "flowframe/laravel-trend": "^0.2.0",
         "laravel/framework": "^11.9",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "ardiansyahirwan/filament-role-permission": "dev-main"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -23,7 +27,8 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Ardiansyahirwan\\FilamentRolePermission\\": "src"
         }
     },
     "autoload-dev": {
@@ -54,6 +59,12 @@
             "dont-discover": []
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ardiansyahirwan/filament-role-permission"
+        }
+    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",

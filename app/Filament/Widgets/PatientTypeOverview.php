@@ -14,6 +14,7 @@ class PatientTypeOverview extends BaseWidget
             Stat::make('Cats', Patient::query()->where('type', 'cat')->count()),
             Stat::make('Dogs', Patient::query()->where('type', 'dog')->count()),
             Stat::make('Rabbits', Patient::query()->where('type', 'rabbit')->count()),
+            Stat::make('Total Pet Patient', Patient::query()->count()),
         ];
     }
 }

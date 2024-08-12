@@ -3,20 +3,18 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PatientResource\Pages;
-use App\Filament\Resources\PatientResource\Pages\CreatePatient;
 use App\Filament\Resources\PatientResource\RelationManagers;
 use App\Filament\Widgets\PatientTypeOverview;
 use App\Models\Patient;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+use function Laravel\Prompts\select;
 
 class PatientResource extends Resource
 {
@@ -47,7 +45,10 @@ class PatientResource extends Resource
                         ->required()
                         ->searchable()
                         ->preload()
-                        ->createOptionForm(OwnerResource::getOwnerForm()),
+                        ->createOptionForm(OwnerResource::getOwnerForm())
+                        ->when(static::getRolesUser(auth()->user()), function (Forms\Components\Select $select) {
+                            return $select->disabledOn('edit');
+                        })
                 ])->columns('full'),
             ])->columns(3);
     }
@@ -112,5 +113,14 @@ class PatientResource extends Resource
         return [
             PatientTypeOverview::class,
         ];
+    }
+
+    public static function getRolesUser(User $user): bool
+    {
+        return $user->hasRole('user');
+    }
+    public static function getRoleAdmin(User $user): bool
+    {
+        return $user->hasRole('admin');
     }
 }
