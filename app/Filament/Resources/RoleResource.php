@@ -18,7 +18,8 @@ use Spatie\Permission\Models\Role;
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
-
+    protected static ?string $modelLabel = 'Roles';
+    protected static ?string $recordTitleAttribute = 'roles';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form

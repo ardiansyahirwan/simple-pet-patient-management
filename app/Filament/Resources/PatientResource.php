@@ -129,6 +129,6 @@ class PatientResource extends Resource
     }
     public static function getRoleAdmin(User $user): bool
     {
-        return $user->hasRole('admin');
+        return $user->hasRole(['admin', 'Super-Admin']);
     }
 }
