@@ -15,13 +15,13 @@ class Patient extends Model
     protected $fillable = [
         'date_of_birth',
         'name',
-        'owner_id',
+        'user_id',
         'type',
     ];
 
-    public function owner(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Owner::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function treatments(): HasMany

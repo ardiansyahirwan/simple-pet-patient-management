@@ -40,16 +40,23 @@ class PatientResource extends Resource
                         'rabbit' => 'Rabbit',
                     ])->required(),
                 Fieldset::make('Data Owner')->schema([
-                    Forms\Components\Select::make('owner_id')
-                        ->relationship('owner', 'name')
+                    Forms\Components\Select::make('user_id')
+                        ->label('Owner')
+                        ->relationship('user', 'name')
                         ->required()
                         ->searchable()
                         ->preload()
-                        ->createOptionForm(OwnerResource::getOwnerForm())
-                        ->when(static::getRolesUser(auth()->user()), function (Forms\Components\Select $select) {
-                            return $select->disabledOn('edit');
-                        })
-                ])->columns('full'),
+                        ->when(
+                            static::getRolesUser(auth()->user()),
+                            function (Forms\Components\Select $select) {
+                                return $select->disabledOn('edit');
+                            }
+                        )
+                ])->columns('full')
+                    ->when(
+                        static::getRolesUser(auth()->user()),
+                        fn (Fieldset $fieldset) => $fieldset->hiddenOn('create')
+                    ),
             ])->columns(3);
     }
 
@@ -63,7 +70,8 @@ class PatientResource extends Resource
                 Tables\Columns\TextColumn::make('type'),
                 Tables\Columns\TextColumn::make('date_of_birth')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('owner.name')
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Owner')
                     ->searchable(),
             ])
             ->filters([

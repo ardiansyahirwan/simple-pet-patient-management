@@ -8,6 +8,7 @@ use Filament\Forms\Components\Wizard\Step;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Forms;
+use Illuminate\Database\Eloquent\Model;
 
 class CreatePatient extends CreateRecord
 {
@@ -24,5 +25,22 @@ class CreatePatient extends CreateRecord
             ->success()
             ->title('Pet added successfully')
             ->body('Your pet successfully added into system');
+    }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        return [
+            'name' => $data['name'],
+            'date_of_birth' => $data['date_of_birth'],
+            'user_id' => static::getResource()::getRolesUser(auth()->user())
+                ? auth()->user()->getAuthIdentifier()
+                : $data['user_id'],
+            'type' => $data['type'],
+        ];
+    }
+
+    protected function handleRecordCreation(array $data): Model
+    {
+        return static::getModel()::create($data);
     }
 }
