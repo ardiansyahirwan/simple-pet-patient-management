@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Resources\PatientResource;
 use App\Filament\Widgets\PatientTypeOverview;
 use App\Filament\Widgets\TreatmentsChart;
 use App\Models\Patient;
@@ -10,8 +11,6 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Pages\Dashboard as BaseDashboard;
-use Filament\Pages\Dashboard\Actions\FilterAction;
-use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class Dashboard extends BaseDashboard
 {
@@ -28,14 +27,9 @@ class Dashboard extends BaseDashboard
         ];
     }
 
-    protected function getHeaderActions(): array
+
+    public static function canAccess(): bool
     {
-        return [
-            FilterAction::make()
-                ->form([
-                    DatePicker::make('startDate'),
-                    DatePicker::make('endDate'),
-                ]),
-        ];
+        return PatientResource::getRolesUser(auth()->user());
     }
 }
