@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Clusters\AuthorizationManagement;
 use App\Filament\Resources\RoleResource\Pages;
 use App\Filament\Resources\RoleResource\RelationManagers\PermissionsRelationManager;
 use App\Filament\Resources\RoleResource\RelationManagers\UsersRelationManager;
@@ -18,6 +19,7 @@ use Spatie\Permission\Models\Role;
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
+    protected static ?string $cluster = AuthorizationManagement::class;
     protected static ?string $modelLabel = 'Roles';
     protected static ?string $recordTitleAttribute = 'roles';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -69,8 +71,8 @@ class RoleResource extends Resource
         ];
     }
 
-    public static function getNavigationGroup(): ?string
-    {
-        return __('Role Permission Management');
-    }
+    // public static function getNavigationGroup(): ?string
+    // {
+    //     return __('Role Permission Management');
+    // }
 }

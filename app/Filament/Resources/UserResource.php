@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Clusters\AuthorizationManagement;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
@@ -20,6 +21,7 @@ class UserResource extends Resource
     protected static ?string $modelLabel = 'Users';
     protected static ?string $recordTitleAttribute = 'users';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $cluster = AuthorizationManagement::class;
 
     public static function form(Form $form): Form
     {
@@ -69,10 +71,10 @@ class UserResource extends Resource
         ];
     }
 
-    public static function getNavigationGroup(): ?string
-    {
-        return __('User Management');
-    }
+    // public static function getNavigationGroup(): ?string
+    // {
+    //     return __('User Management');
+    // }
 
     public static function getPages(): array
     {

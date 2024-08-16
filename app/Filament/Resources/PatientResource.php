@@ -13,6 +13,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 use function Laravel\Prompts\select;
 
@@ -74,6 +75,12 @@ class PatientResource extends Resource
                     ->label('Owner')
                     ->searchable(),
             ])
+            ->modifyQueryUsing(function (Builder $query): Builder {
+                if (static::getRolesUser(auth()->user())) {
+                    return $query->where('user_id', auth()->user()->getAuthIdentifier());
+                }
+                return $query;
+            })
             ->filters([
                 // Tables\Filters\SelectFilter::make('type')
                 //     ->options([
@@ -127,8 +134,17 @@ class PatientResource extends Resource
     {
         return $user->hasRole('user');
     }
+
     public static function getRoleAdmin(User $user): bool
     {
         return $user->hasRole(['admin', 'Super-Admin']);
     }
+
+    // public static function queryWherePet(Builder $query): Builder
+    // {
+    //     if (static::getRolesUser(auth()->user())) {
+    //         return $query->where('user_id', auth()->user()->getAuthIdentifier());
+    //     }
+    //     return $query;
+    // }
 }
