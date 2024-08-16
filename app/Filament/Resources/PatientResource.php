@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 use function Laravel\Prompts\select;
 
@@ -140,7 +141,7 @@ class PatientResource extends Resource
         return $user->hasRole(['admin', 'Super-Admin']);
     }
 
-    // public static function queryWherePet(Builder $query): Builder
+    // public static function queryWherePet($query)
     // {
     //     if (static::getRolesUser(auth()->user())) {
     //         return $query->where('user_id', auth()->user()->getAuthIdentifier());
