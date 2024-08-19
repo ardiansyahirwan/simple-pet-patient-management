@@ -27,11 +27,9 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->sidebarCollapsibleOnDesktop(true)
+            ->spa()
             ->colors([
-                'primary' => '#FFA823',
-                'success' => '#6C946F',
-                'warning' => '#FFD35A',
-                'danger' => '#DC0083',
+                'primary' => '#fcd34d',
             ])
             ->sidebarCollapsibleOnDesktop(true)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
